@@ -1,42 +1,57 @@
-const fs = require('fs')
-const Jimp = require('jimp') 
-let handler = async (m, { conn }) => {
-var image = m.quoted ? m.quoted : m
-var mime = (image.msg || image).mimetype || ''
-var media = await image.download()
-            const group = m.chat
-            var { img } = await generateProfilePicture(media)
-            await conn.query({
-            tag: 'iq',
-            attrs: {
-            to: group, 
-            type:'set',
-            xmlns: 'w:profile:picture'
-            },
-            content: [
-            {
-            tag: 'picture',
-            attrs: { type: 'image' },
-            content: img
-            }
-            ]
-            })
-            m.reply(`Update Profile Group ✅`)
-}
-handler.help = ['setppgc']
-handler.tags = ['group']
-handler.command = /^(setppgc|setppgrup|setppgroup)$/i
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 
-handler.group = true
+const jimp_1 = require('jimp')
+
+let handler = async (m, { conn, command, usedPrefix }) => {
+	let q = m.quoted ? m.quoted : m
+	let mime = (q.msg || q).mimetype || q.mediaType || ''
+	if (/image/g.test(mime) && !/webp/g.test(mime)) {
+		try {
+			let media = await q.download()
+			let { img } = await pepe(media)
+			await conn.query({
+				tag: 'iq',
+				attrs: {
+					to: m.chat,
+					type:'set',
+					xmlns: 'w:profile:picture'
+				},
+				content: [
+					{
+						tag: 'picture',
+						attrs: { type: 'image' },
+						content: img
+					}
+				]
+			})
+			m.reply(`Admin @${(m.sender || '').replace(/@s\.whatsapp\.net/g, '')} telah mengganti Icon Group!`, null, { mentions: [m.sender] })
+		} catch (e) {
+			console.log(e)
+			m.reply(`Terjadi kesalahan, coba lagi nanti.`)
+		}
+	} else {
+		m.reply(`Kirim gambar dengan caption *${usedPrefix + command}* atau tag gambar yang sudah dikirim`)
+	}
+}
+
+handler.help = ['setppgc', 'setppgcpanjang']
+handler.tags = ['group']
+handler.command = /^(setppgc|setppgcpanjang)$/i
+
 handler.admin = true
 handler.botAdmin = true
-module.exports = handler
+handler.group = true
 
-async function generateProfilePicture(buffer) {
-	const jimp_1 = await Jimp.read(buffer);
-	const minz = jimp_1.getWidth() > jimp_1.getHeight() ? jimp_1.resize(720, Jimp.AUTO) : jimp_1.resize(Jimp.AUTO, 720)
-	const jimp_2 = await Jimp.read(await minz.getBufferAsync(Jimp.MIME_JPEG));
+export default handler
+
+async function pepe(media) {
+	const jimp = await jimp_1.read(media)
+	const min = jimp.getWidth()
+	const max = jimp.getHeight()
+	const cropped = jimp.crop(0, 0, min, max)
 	return {
-	  img: await minz.getBufferAsync(Jimp.MIME_JPEG)
+		img: await cropped.scaleToFit(720, 720).getBufferAsync(jimp_1.MIME_JPEG),
+		preview: await cropped.normalize().getBufferAsync(jimp_1.MIME_JPEG)
 	}
 }

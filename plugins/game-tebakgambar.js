@@ -1,4 +1,4 @@
-let fetch = require('node-fetch')
+import fetch from 'node-fetch'
 
 let timeout = 120000
 let poin = 500
@@ -14,12 +14,17 @@ let handler = async (m, { conn, usedPrefix }) => {
   let json = src[Math.floor(Math.random() * src.length)]
   if (!json) throw json
   let caption = `
-Timeout *${(timeout / 1000).toFixed(2)} detik*
-Ketik ${usedPrefix}hint untuk hint
-Bonus: ${poin} XP
+≡ _GAME TEBAK GAMBAR_
+
+┌─⊷ *SOAL*
+▢ Timeout *${(timeout / 1000).toFixed(2)} detik*
+▢ Ketik ${usedPrefix}hint untuk hint
+▢ Bonus: ${poin} XP
+└──────────────
+
     `.trim()
   conn.tebakgambar[id] = [
-    await conn.sendButtonImg(m.chat, json.img, caption, wm, 'Bantuan', '.hint', m, false),
+    await conn.sendMessage(m.chat, { image: { url: json.img }, caption: caption, footer: nans }, { quoted: m }),
     json, poin,
     setTimeout(() => {
       if (conn.tebakgambar[id]) conn.reply(m.chat, `Waktu habis!\nJawabannya adalah *${json.jawaban}*`, conn.tebakgambar[id][0])
@@ -31,4 +36,4 @@ handler.help = ['tebakgambar']
 handler.tags = ['game']
 handler.command = /^tebakgambar/i
 
-module.exports = handler
+export default handler

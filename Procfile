@@ -1,1 +1,1 @@
-worker: node . --autocleartmp 
+web: node . --server
