@@ -10,15 +10,15 @@ import chalk from 'chalk'
 import { fileURLToPath } from 'url'
 
 global.owner = [
-  ['6285711324080', 'HenzzXD', true],
-  ['6285711324080']
+  ['6285640166891', 'HenzzXD', true],
+  ['62895351154108']
 ] // Nomor Owner
 
 global.mods = ['6285711324080'] 
 global.prems = ['6285711324080', '6285711324080']
 
 // apikey
-global.lann = 'apikeylu'
+global.lann = 'zyHiDhxH'
 // apikeylu di ganti menggunakan apikey yang di dapatkan di website https://api.betabotz.org. contohnya global.lann = 'nans' (contoh). cara mendapatkan apikey. masuk website > scroll ke bawah dan cari harga yang kamu mau ada juga yang free dan tekan > otomatis akan di arahkan untuk registrasi, isi data diri email dll. > kalo sudah klik profil dan di situ akan muncul apikey mu. terima kasih.
 
 global.APIKeys = { // APIKey Here
@@ -42,8 +42,8 @@ global.thumb = 'https://ibb.co/qn81dTp' // thumbnail bot ( foto menu )
 global.dygp = 'https://chat.whatsapp.com/C4OGXvdgseAAS8KM6uyXnO' // link group yang ada di menu
 
 // Sticker wm
-global.packname = 'AMURA MD┃ᴮᴼᵀ' 
-global.author = '@HenzzXD' 
+global.packname = 'WhatsApp' 
+global.author = 'Dibuat Oleh WhatsApp' 
 global.fgig = 'https://www.instagram.com/henzz4368' // bebas tapi jangan kosong 
 global.fgsc = 'https://github.com/henzz4368' // bebas tapi jangan kosong
 global.fgyt = 'https://youtube.com/@HenzzXD1' // bebas tapi jangan kosong
@@ -57,7 +57,7 @@ global.web = 'https://youtube.com/@HenzzXD1'
 global.email = 'henzzxd01@gmail.com'
 global.lastm = 'ꜱɪᴍᴘʟᴇ ʙᴏᴛ ᴡʜᴀᴛꜱᴀᴘᴘ ʙʏ HenzzXdD'
 
-global.wait = 'Tunggu sebentar sayang....'
+global.wait = 'Tunggu sebentar....'
 global.rwait = '⌛'
 global.dmoji = '🤭'
 global.done = '✅'
